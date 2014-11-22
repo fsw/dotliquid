@@ -424,8 +424,17 @@ namespace DotLiquid
 				return safeTypeTransformer(obj);
             if (obj.GetType().GetCustomAttributes(typeof(LiquidTypeAttribute), false).Any())
             {
-                var attr = (LiquidTypeAttribute)obj.GetType().GetCustomAttributes(typeof(LiquidTypeAttribute), false).First();
-                return new DropProxy(obj, attr.AllowedMembers);
+                var attr = (LiquidTypeAttribute)obj.GetType().GetCustomAttributes(typeof(LiquidTypeAttribute), true).First();
+                List<string> allowedMembers = new List<string>(attr.AllowedMembers);
+                foreach (var propertyInfo in obj.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                   if (propertyInfo.GetCustomAttributes (typeof(LiquidPropertyAttribute), false).Any ())
+                      allowedMembers.Add(propertyInfo.Name);
+                return new DropProxy(obj, allowedMembers.ToArray());
+            }
+            if (obj.GetType ().IsGenericType)
+            {
+                //TODO check if this would be possible using obj.GetType ().GetGenericTypeDefinition().GetCustomAttributes(typeof(LiquidTypeAttribute), true).Any());
+                throw new Exception ("Generic LiquidTypes are not supported");
             }
             
 			throw new SyntaxException(Liquid.ResourceManager.GetString("ContextObjectInvalidException"), obj.ToString());

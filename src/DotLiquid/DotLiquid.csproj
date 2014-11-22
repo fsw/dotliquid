@@ -117,6 +117,7 @@
     <Compile Include="Util\TypeUtility.cs" />
     <Compile Include="Util\WeakTable.cs" />
     <Compile Include="Variable.cs" />
+    <Compile Include="LiquidPropertyAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

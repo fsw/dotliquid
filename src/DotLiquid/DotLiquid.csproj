@@ -51,6 +51,10 @@
     <Compile Include="IValueTypeConvertible.cs" />
     <Compile Include="LiquidTypeAttribute.cs" />
     <Compile Include="RenderParameters.cs" />
+    <Compile Include="ReturnCode.cs" />
+    <Compile Include="StringRenderable.cs" />
+    <Compile Include="Tags\Break.cs" />
+    <Compile Include="Tags\Continue.cs" />
     <Compile Include="Tags\Raw.cs" />
     <Compile Include="Util\StrFTime.cs" />
     <Compile Include="Exceptions\ArgumentException.cs" />
